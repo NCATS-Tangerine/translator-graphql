@@ -13,7 +13,6 @@ class TranslatorGraphql:
            * Invocation templates
            * Return value structure and semantics
     """
-
     def __init__(self, url, introspection_query=None):
         """ Connect to and retrieve the schema of the GraphQL endpoint. """
         self.url = url
@@ -35,6 +34,7 @@ class TranslatorGraphql:
         return r.json ()
 
     def grok_type (self, arg_type):
+        """ Figure out the type of this thing. Make recursive."""
         result = None
         #print ("    gt: {}".format (json.dumps (arg_type)))
         kind = arg_type.get ('kind', None)
@@ -47,14 +47,16 @@ class TranslatorGraphql:
         return result
     
     def get_metadata (self):
+        """ Get metadata for this service. 
+        Add empty elements for smartAPI like annotations.
+        """
         result = {
             "paths" : {}
         }
         for t in self.schema.get ('__schema',{}).get ("types",[]):
             type_name = t.get ('name', None)
             if type_name.endswith ('Query'):
-                print ("--{}".format (t['name']))
-                #print ("   {} ".format (json.dumps (t)))
+                print ("--processing schema: {}".format (t['name']))
                 for field in t.get ('fields', []):
                     field_name = field.get('name')
                     result['paths'][field_name] = {
@@ -84,13 +86,37 @@ class TranslatorGraphql:
                     }
         return result
 
+    def compile (self, metadata):
+        """ For each path in the generated schema, check if there's an 
+        associated yaml file. If so, load it. If it has an associated
+        JSONLD context, load that and merge it in. Merge the entire thing into
+        the overall service schema."""
+        for path in metadata['paths']:
+            decorator_spec = "{0}.yaml".format (path)
+            if os.path.exists (decorator_spec):
+                with open (decorator_spec, "r") as stream:
+                    spec = yaml.load (stream.read ())
+                    paths = spec['paths']
+                    for k in paths:
+                        response = paths[k].\
+                                   get("responses", {}).\
+                                   get ("200", {})
+                        jsonld_context = response.get ("x-JSONLDContext", None)
+                        if jsonld_context:
+                            with open (jsonld_context, "r") as jsonld_stream:
+                                jsonld_context = yaml.load (jsonld_stream.read ())
+                                response["x-JSONLDContext"] = jsonld_context
+                    metadata = update (metadata, spec)
+        return metadata
+
     def write_metadata (self, metadata, file_name="schema.yaml"):
-        #metadata = update (metadata, test)
+        """ Write service metadata. """
         with open (file_name, "w") as stream:
             yaml.dump (metadata, stream, default_flow_style=False)
         return metadata
     
 def update(d, u):
+    """ Update dictionary d with values from a dictionary u (recursively)."""
     for k, v in u.items():
         if isinstance(v, collections.Mapping):
             d[k] = update(d.get(k, {}), v)
@@ -106,22 +132,5 @@ if __name__ == "__main__":
     schema = yaml.dump (trans_graph.schema,
                         default_flow_style=False)
     metadata = trans_graph.write_metadata (trans_graph.get_metadata ())
-    for path in metadata['paths']:
-        decorator_spec = "{0}.yaml".format (path)
-        if os.path.exists (decorator_spec):
-            with open (decorator_spec, "r") as stream:
-                spec = yaml.load (stream.read ())
-                paths = spec['paths']
-                for k in paths:
-                    response = paths[k].\
-                                   get("responses", {}).\
-                                   get ("200", {})
-                    print ("--{}".format (response))
-                    jsonld_context = response.get ("x-JSONLDContext", None)
-                    print ("jsonld context: {}".format (jsonld_context))
-                    if jsonld_context:
-                        with open (jsonld_context, "r") as jsonld_stream:
-                            jsonld_context = yaml.load (jsonld_stream.read ())
-                            response["x-JSONLDContext"] = jsonld_context
-                metadata = update (metadata, spec)
+    metadata = trans_graph.compile (metadata)
     trans_graph.write_metadata (metadata, "updated.yaml")
