@@ -1,0 +1,224 @@
+paths:
+  drugGeneDisease:
+    parameters:
+      diseaseName:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      drugName:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+    responses:
+      '200':
+        x-JSONLDContext: {}
+        x-responseValueType:
+          path: '...'
+          valueType: '...'
+  drugsByCondition:
+    parameters:
+      conditions:
+        type:
+          list: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+    responses:
+      '200':
+        x-JSONLDContext: {}
+        x-responseValueType:
+          path: '...'
+          valueType: '...'
+  endotype:
+    parameters:
+      query:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+    responses:
+      '200':
+        x-JSONLDContext: {}
+        x-responseValueType:
+          path: '...'
+          valueType: '...'
+  exposureConditions:
+    parameters:
+      chemicals:
+        type:
+          list: String
+        x-requestTemplate:
+          template: "query getExposureConditions($chemicals : [String] ) {\n  exposureConditions(chemicals:\
+            \ $chemicals) {\n    chemical\n    gene\n    pathway\n    pathName\n \
+            \   pathID\n    human\n  }\n}\n"
+          valueType: http://schema.org/name
+          variables:
+            chemicals: []
+        x-valueType: http://schema.org/name
+    responses:
+      '200':
+        x-JSONLDContext:
+          '@context':
+            '@base': http://identifiers.org/inchikey/,
+            '@version': 1.1,
+            data:
+              '@context':
+                exposureConditions:
+                  chemical:
+                    '@context':
+                      '@base': 'http://bio2rdf.org/mesh:'
+                    '@id': ont:some_relation_a
+                    '@type': '@id'
+                  gene:
+                    '@context':
+                      '@base': http://chem2bio2rdf.org/uniprot/resource/gene/
+                    '@id': ont:some_relation_b
+                    '@type': '@id'
+                  pathway:
+                    '@content':
+                      '@base': http://chem2bio2rdf.org/kegg/resource/kegg_pathway/
+                    '@id': ont:some_relation_c
+                    '@type': '@id'
+              '@id': http://identifiers.org/_______________
+              '@type': '@id'
+            term: http://biothings.io/terms/mychem/
+        x-responseValueType:
+          path: '...'
+          valueType: '...'
+  exposureScore:
+    parameters:
+      endDate:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      exposurePoint:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      exposureType:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      startDate:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+    responses:
+      '200':
+        x-JSONLDContext: {}
+        x-responseValueType:
+          path: '...'
+          valueType: '...'
+  exposureValue:
+    parameters:
+      endDate:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      exposurePoint:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      exposureType:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      startDate:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+    responses:
+      '200':
+        x-JSONLDContext: {}
+        x-responseValueType:
+          path: '...'
+          valueType: '...'
+  genePathsByDisease:
+    parameters:
+      diseases:
+        type:
+          list: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+    responses:
+      '200':
+        x-JSONLDContext: {}
+        x-responseValueType:
+          path: '...'
+          valueType: '...'
+  patients:
+    parameters:
+      age:
+        type: Int
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      race:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      sex:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+    responses:
+      '200':
+        x-JSONLDContext: {}
+        x-responseValueType:
+          path: '...'
+          valueType: '...'
+  translate:
+    parameters:
+      domainA:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      domainB:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      thing:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+    responses:
+      '200':
+        x-JSONLDContext: {}
+        x-responseValueType:
+          path: '...'
+          valueType: '...'

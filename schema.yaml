@@ -1,0 +1,196 @@
+paths:
+  drugGeneDisease:
+    parameters:
+      diseaseName:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      drugName:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+    responses:
+      '200':
+        x-JSONLDContext: {}
+        x-responseValueType:
+          path: '...'
+          valueType: '...'
+  drugsByCondition:
+    parameters:
+      conditions:
+        type:
+          list: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+    responses:
+      '200':
+        x-JSONLDContext: {}
+        x-responseValueType:
+          path: '...'
+          valueType: '...'
+  endotype:
+    parameters:
+      query:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+    responses:
+      '200':
+        x-JSONLDContext: {}
+        x-responseValueType:
+          path: '...'
+          valueType: '...'
+  exposureConditions:
+    parameters:
+      chemicals:
+        type:
+          list: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+    responses:
+      '200':
+        x-JSONLDContext: {}
+        x-responseValueType:
+          path: '...'
+          valueType: '...'
+  exposureScore:
+    parameters:
+      endDate:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      exposurePoint:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      exposureType:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      startDate:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+    responses:
+      '200':
+        x-JSONLDContext: {}
+        x-responseValueType:
+          path: '...'
+          valueType: '...'
+  exposureValue:
+    parameters:
+      endDate:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      exposurePoint:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      exposureType:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      startDate:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+    responses:
+      '200':
+        x-JSONLDContext: {}
+        x-responseValueType:
+          path: '...'
+          valueType: '...'
+  genePathsByDisease:
+    parameters:
+      diseases:
+        type:
+          list: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+    responses:
+      '200':
+        x-JSONLDContext: {}
+        x-responseValueType:
+          path: '...'
+          valueType: '...'
+  patients:
+    parameters:
+      age:
+        type: Int
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      race:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      sex:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+    responses:
+      '200':
+        x-JSONLDContext: {}
+        x-responseValueType:
+          path: '...'
+          valueType: '...'
+  translate:
+    parameters:
+      domainA:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      domainB:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+      thing:
+        type: String
+        x-requestTemplate:
+          template: '...{{input}}...'
+          valueType: '...'
+        x-valueType: '...'
+    responses:
+      '200':
+        x-JSONLDContext: {}
+        x-responseValueType:
+          path: '...'
+          valueType: '...'
