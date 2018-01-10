@@ -1,3 +1,6 @@
+servers:
+  - url: 'http://stars-dw9.edc.renci.org:5000/graphql'
+    description: 'Production server'
 paths:
   exposureConditions:
     parameters:
